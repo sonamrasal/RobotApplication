@@ -21,9 +21,13 @@ public class RobotTest {
 	}
 
 	@Test
-	public void fullyChargedRobotCanWalk5KMBeforeDischarge()
-			throws LowBatteryException {
-		assertTrue(NO_CHARGE.equals(robot.walk(5).charge()));
+	public void fullyChargedRobotCanWalk5KMBeforeDischarge() {
+		try {
+			robot.walk(5).charge();
+			fail("Exception expected");
+		} catch (LowBatteryException e) {
+			assertTrue(NO_CHARGE.equals(robot.charge()));
+		}
 	}
 
 	@Test(expected = LowBatteryException.class)

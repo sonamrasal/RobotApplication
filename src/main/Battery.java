@@ -4,6 +4,7 @@ public class Battery {
 	public double charge;
 	private static final float LOW_BATTERY_THRESHOLD = 15.0F;
 	private static final int BATTERY_CONSUMPTION_PER_KG_WEIGHT = 2;
+	private static final int MAX_DISTANCE_WITH_FULL_CHARGE = 5;
 	private static final double FULL_CHARGE = 100.0F;
 
 	public Battery(double charge) {
@@ -32,13 +33,13 @@ public class Battery {
 		return weight * BATTERY_CONSUMPTION_PER_KG_WEIGHT;
 	}
 
-	public void consumeChargeForWalking(double distanceToWalk, int maxDistanceWithFullCharge) {
-		double consumptionForWalking = getConsumptionForWalking(distanceToWalk, maxDistanceWithFullCharge);
+	public void consumeChargeForWalking(double distanceToWalk) {
+		double consumptionForWalking = getConsumptionForWalking(distanceToWalk);
 		charge = Math.max(0.0, charge - consumptionForWalking);
 	}
 
-	private double getConsumptionForWalking(double distanceToWalk, int maxDistanceWithFullCharge) {
-		return (distanceToWalk * FULL_CHARGE) / maxDistanceWithFullCharge;
+	private double getConsumptionForWalking(double distanceToWalk) {
+		return (distanceToWalk * FULL_CHARGE) / MAX_DISTANCE_WITH_FULL_CHARGE;
 	}
 	
 	@Override
